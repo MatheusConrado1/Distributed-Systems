@@ -1,0 +1,33 @@
+from TCPClient import Client
+
+class ProxyCalcS:
+    _instancia = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instancia:
+            cls._instancia = super(ProxyCalcS, cls).__new__(cls, *args, **kwargs)
+        return cls._instancia
+    
+    def __init__(self):
+        print("ProxyCalc criado")
+
+    def treat_response(self, text):
+        client = Client()
+        req = None
+
+        try:
+            parts = text.split(',')
+            if len(parts) == 2:
+                opp, op_1 = parts
+                op1 = float(op_1)
+                op2 = None
+            elif len(parts) == 3:
+                opp, op_1, op_2 = parts
+                op1 = float(op_1)
+                op2 = float(op_2)
+        except Exception as e:
+            print(f"Erro: {e}")
+
+        if req : res = client.sendReq(req)
+
+        return res
